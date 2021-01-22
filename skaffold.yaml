@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - infra/k8s/*
+build:
+  local:
+    push: false # Do not push images to docker hub upon building them
+  artifacts:
+    - image: mathiasbergqvist/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync: # What to do when a file changes
+        manual:
+          - src: "src/**/*ts" # Sync all ts files inside a scr directory
+            dest: .
