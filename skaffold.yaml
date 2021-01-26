@@ -5,14 +5,16 @@ deploy:
     manifests:
       - infra/k8s/*
 build:
-  local:
-    push: false # Do not push images to docker hub upon building them
+  # local:
+  #   push: false # Do not push images to docker hub upon building them
+  googleCloudBuild: # Use google cloud build
+    projectId: ticketing-dev-302807
   artifacts:
-    - image: mathiasbergqvist/auth
+    - image: us.gcr.io/ticketing-dev-302807/auth # Id from project in Google Cloud
       context: auth
       docker:
         dockerfile: Dockerfile
       sync: # What to do when a file changes
         manual:
-          - src: "src/**/*ts" # Sync all ts files inside a scr directory
+          - src: "src/**/*.ts" # Sync all ts files inside a scr directory
             dest: .

@@ -8,7 +8,7 @@ const error = chalk.red;
 const app = express();
 app.use(json());
 
-app.get("api/users/currentUser", (req, res) => {
+app.get("api/users/currentuser", (req, res) => {
   res.send("Hi there!");
 });
 
