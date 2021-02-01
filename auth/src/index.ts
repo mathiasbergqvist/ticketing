@@ -4,6 +4,7 @@ import { currentUserRouter } from "./routes/current-user";
 import { signInRouter } from "./routes/singin";
 import { signOutRouter } from "./routes/signout";
 import { signUpRouter } from "./routes/signup";
+import { errorHandler } from "./middlewares/error-handler";
 import { log, info } from "./logger";
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(currentUserRouter);
 app.use(signInRouter);
 app.use(signOutRouter);
 app.use(signUpRouter);
+app.use(errorHandler);
 
 app.listen(3001, () => {
   log(info("AUTH: Server started on port 3001 🚀"));
