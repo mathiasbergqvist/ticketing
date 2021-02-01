@@ -4,11 +4,7 @@ import { currentUserRouter } from "./routes/current-user";
 import { signInRouter } from "./routes/singin";
 import { signOutRouter } from "./routes/signout";
 import { signUpRouter } from "./routes/signup";
-
-const chalk = require("chalk");
-const log = console.log;
-const info = chalk.blue;
-const error = chalk.red;
+import { log, info } from "./logger";
 
 const app = express();
 app.use(json());
