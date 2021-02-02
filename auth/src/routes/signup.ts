@@ -1,3 +1,4 @@
+import { RequestValidationError } from "./../errors/request-validation-errors";
 import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import { log, info } from "../logger";
@@ -17,7 +18,7 @@ router.post(
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      throw new Error("Invalid email/password");
+      throw new RequestValidationError(errors.array());
     }
 
     const { email, password } = req.body;
