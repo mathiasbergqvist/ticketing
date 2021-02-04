@@ -1,3 +1,4 @@
+import { error } from "./../logger";
 import { DataBaseConnectionError } from "./../errors/database-connection-error";
 import { Request, Response, NextFunction } from "express";
 import { RequestValidationError } from "./../errors/request-validation-errors";
@@ -9,14 +10,29 @@ export const errorHandler = (
   next: NextFunction
 ) => {
   if (err instanceof RequestValidationError) {
-    console.log("RequestValidationError", err);
+    const formattedErrors = err.errors.map((error) => ({
+      message: error.msg,
+      field: error.param,
+    }));
+
+    return res.status(400).send({ errors: formattedErrors });
   }
 
   if (err instanceof DataBaseConnectionError) {
-    console.log("DataBaseConnectionError", err);
+    return res.status(500).send({
+      errors: [
+        {
+          message: err.reason,
+        },
+      ],
+    });
   }
 
-  res.status(405).send({
-    message: err.message,
+  res.status(400).send({
+    errors: [
+      {
+        message: "Something went wrong",
+      },
+    ],
   });
 };
