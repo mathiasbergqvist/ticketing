@@ -7,7 +7,8 @@ import { signOutRouter } from "./routes/signout";
 import { signUpRouter } from "./routes/signup";
 import { errorHandler } from "./middlewares/error-handler";
 import { NotFoundError } from "./errors/not-found-error";
-import { log, info } from "./logger";
+import { log, info, error } from "./logger";
+import mongoose from "mongoose";
 
 const app = express();
 app.use(json());
@@ -23,6 +24,21 @@ app.all("*", () => {
 
 app.use(errorHandler);
 
-app.listen(3001, () => {
-  log(info("AUTH: Server started on port 3001 🚀"));
-});
+const start = async () => {
+  try {
+    await mongoose.connect("mongodb://auth-mongo-srv:27017/auth", {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    });
+    log(info("Connected to MongoDB 🔌"));
+  } catch (err) {
+    log(error("Failed to connect to db", err));
+  }
+
+  app.listen(3001, () => {
+    log(info("AUTH: Server started on port 3001 🚀"));
+  });
+};
+
+start();
