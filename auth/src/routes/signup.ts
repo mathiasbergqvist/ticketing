@@ -1,8 +1,8 @@
-import { RequestValidationError } from "./../errors/request-validation-errors";
 import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
-import { log, info, error } from "../logger";
+import { BadRequestError } from "../errors/bad-request-error";
 import { User } from "../models/user";
+import { RequestValidationError } from "./../errors/request-validation-errors";
 
 const router = express.Router();
 
@@ -27,8 +27,7 @@ router.post(
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      log(error("User already existing"));
-      return res.send({});
+      throw new BadRequestError("Email is already in use");
     }
 
     const user = User.build({ email, password });
