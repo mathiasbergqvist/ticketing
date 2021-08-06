@@ -40,7 +40,7 @@ router.post(
         id: user.id,
         email: user.email,
       },
-      "asgf"
+      process.env.JWT_KEY!
     );
 
     // Store it on out session object
