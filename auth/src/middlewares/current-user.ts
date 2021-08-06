@@ -1,6 +1,20 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+interface UserPayload {
+  id: string;
+  email: string;
+}
+
+// Reach into existing type definition and make a modification to it
+declare global {
+  namespace Express {
+    interface Request {
+      currentUser?: UserPayload;
+    }
+  }
+}
+
 export const currentUser = (
   req: Request,
   res: Response,
@@ -11,7 +25,11 @@ export const currentUser = (
   }
 
   try {
-    const payload = jwt.verify(req.session.jwt, process.env.JWT_TOKEN!);
+    const payload = jwt.verify(
+      req.session.jwt,
+      process.env.JWT_TOKEN!
+    ) as UserPayload;
+    req.currentUser = payload;
   } catch (err) {}
 
   next();
