@@ -8,11 +8,18 @@ import { errorHandler } from "./middlewares/error-handler";
 import { NotFoundError } from "./errors/not-found-error";
 import { log, info, error } from "./logger";
 import mongoose from "mongoose";
+import cookieSession from "cookie-session";
 import { currentUserRouter } from "./routes/current-user";
 
 const app = express();
+app.set("trust proxy", true); // Allow traffic through ngnx 
 app.use(json());
-
+app.use(
+  cookieSession({
+    signed: false,
+    secure: true,
+  })
+);
 app.use(currentUserRouter);
 app.use(signInRouter);
 app.use(signOutRouter);

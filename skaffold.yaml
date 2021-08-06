@@ -7,7 +7,7 @@ deploy:
 build:
   # local:
   #   push: false # Do not push images to docker hub upon building them
-  googleCloudBuild: # Use google cloud build
+  googleCloudBuild: # Use google cloud build when pushing changes
     projectId: ticketing-dev-302807
   artifacts:
     - image: us.gcr.io/ticketing-dev-302807/auth # Id from project in Google Cloud
