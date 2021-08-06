@@ -1,6 +1,6 @@
-import express from "express";
+import express, { Router } from "express";
 
-const router = express.Router();
+const router = Router();
 
 router.get("/api/users/signout", (req, res) => {
   req.session = null;
