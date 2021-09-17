@@ -3,6 +3,10 @@ import mongoose, { connection } from "mongoose";
 
 let mongo: any;
 
+declare global {
+  var signin: () => Promise<string[]>;
+}
+
 beforeAll(async () => {
   process.env.JWT_KEY = "test-key-123";
 

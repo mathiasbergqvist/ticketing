@@ -1,4 +1,3 @@
-import { Password } from "./../../services/password";
 import request from "supertest";
 import { app } from "../../app";
 
