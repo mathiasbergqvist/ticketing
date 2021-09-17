@@ -53,4 +53,18 @@ describe("signup", () => {
       })
       .expect(400);
   });
+
+  it("sets a cookie after successful signup", () => {
+    const response = request(app)
+      .post("/api/users/signup")
+      .send({
+        email: "test@test.com",
+        password: "pwd123",
+      })
+      .expect(201);
+
+    // expect(response.session).toEqual({});
+    console.log("Cookie?", response.get("Set-Cookie"));
+    expect(response.get("Set-Cookie")).toBeDefined();
+  });
 });

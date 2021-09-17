@@ -38,7 +38,7 @@ router.post(
       process.env.JWT_KEY!
     );
 
-    // Store it on out session object
+    // Store it on out session object, turned into a string by cookie session middleware
     req.session = {
       jwt: userJwt,
     };
