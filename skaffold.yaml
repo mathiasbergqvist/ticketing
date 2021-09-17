@@ -18,3 +18,11 @@ build:
         manual:
           - src: "src/**/*.ts" # Sync all ts files inside a scr directory
             dest: .
+    - image: us.gcr.io/ticketing-dev-302807/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
+            dest: .
