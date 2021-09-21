@@ -8,14 +8,17 @@ export const METHOD = {
   DELETE: "delete",
 };
 
-export default ({ url, method = METHOD.POST, body }) => {
+export default ({ url, method = METHOD.POST, body, onSuccess }) => {
   const [errors, setErrors] = useState(null);
 
   const doRequest = async () => {
     try {
       setErrors(null);
       const response = await axios[method](url, body);
-      return response.data;
+
+      if (onSuccess) {
+        onSuccess(response.data);
+      }
     } catch (error) {
       setErrors(
         <div className="alert alert-danger">
