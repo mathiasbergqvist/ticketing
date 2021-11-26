@@ -23,6 +23,10 @@ app.use(signInRouter);
 app.use(signOutRouter);
 app.use(signUpRouter);
 
+app.get("/api/users/health", (req, res) => {
+  res.send("UP AND RUNNING!");
+});
+
 app.all("*", () => {
   throw new NotFoundError();
 });

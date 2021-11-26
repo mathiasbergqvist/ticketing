@@ -18,8 +18,8 @@ const start = async () => {
     log(error("Failed to connect to db", err));
   }
 
-  app.listen(3001, () => {
-    log(info("AUTH: Server started on port 3001 🚀"));
+  app.listen(3000, () => {
+    log(info("AUTH: Server started on port 3000 🚀"));
   });
 };
 

@@ -14,7 +14,7 @@ spec:
     spec: # How every pod behaves
       containers:
         - name: client
-          image: us.gcr.io/ticketing-dev-302807/client
+          image: mathiasbergqvist/client
           env: # Env. variables accessiable in the container
             - name: JWT_KEY
               valueFrom:
